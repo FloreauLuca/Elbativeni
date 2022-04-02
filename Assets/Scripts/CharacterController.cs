@@ -22,10 +22,14 @@ public class CharacterController : MonoBehaviour
 
 	public virtual void Update()
 	{
-		if (_moving && (_targetPos - (Vector2)transform.position).sqrMagnitude < _radius)
+		if (_moving)
 		{
-			_moving = false;
-			_rigidbody.velocity = Vector2.zero;
+			MoveTo(_targetPos);
+			if ((_targetPos - (Vector2)transform.position).sqrMagnitude < _radius)
+			{
+				_moving = false;
+				_rigidbody.velocity = Vector2.zero;
+			}
 		}
 	}
 	
@@ -36,6 +40,13 @@ public class CharacterController : MonoBehaviour
 		_rigidbody.velocity = dir * _speed;
 		_moving = true;
 		LookAt(dir);
+	}
+
+	protected void StopMoving()
+	{
+		_rigidbody.velocity = Vector2.zero;
+		_moving = false;
+		_targetPos = transform.position;
 	}
 
 	private void LookAt(Vector2 dir)
