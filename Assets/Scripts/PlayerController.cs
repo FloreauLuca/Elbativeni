@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class PlayerController : CharacterController
 {
-	[SerializeField] private ParticleSystem _pointerParticleSystem = null;
+	[SerializeField] private Animator _pointer = null;
 
     private Camera _camera = null;
 
     private CameraManager _cameraManager = null;
+    private Animator _playerAnimator = null;
 
     private Room _room = null;
 
@@ -24,8 +25,16 @@ public class PlayerController : CharacterController
         
         _camera = Camera.main;
 		_cameraManager = FindObjectOfType<CameraManager>();
-		_cameraManager.HasModeSwitched += StopMoving;
+		_playerAnimator = GetComponentInChildren<Animator>();
+
+        _cameraManager.HasModeSwitched += OnModeSwitch;
 	}
+
+    public void OnModeSwitch()
+    {
+	    StopMoving();
+	    _pointer.gameObject.SetActive(_cameraManager.IsPlayerView);
+    }
 
     public override void Update()
     {
@@ -36,14 +45,15 @@ public class PlayerController : CharacterController
             DrawFxPointer(pointerPos);
 		}
 
+        _playerAnimator.SetBool("Walk", _rigidbody.velocity.magnitude > 0.1f);
+
         base.Update();
     }
 
     private void DrawFxPointer(Vector2 pointerPos)
     {
-        _pointerParticleSystem.Stop(true);
-	    _pointerParticleSystem.transform.position = pointerPos;
-        _pointerParticleSystem.Play(true);
+        _pointer.transform.position = pointerPos;
+        _pointer.SetTrigger("Point");
     }
 
     public void SetRoom(Room room)
@@ -54,7 +64,7 @@ public class PlayerController : CharacterController
 
 		    if (_room.IsEnemyOccupied)
 		    {
-                _room.ChangeType(Room.RoomType.NONE);
+                _room.CloseRoom();
 		    }
 	    }
 

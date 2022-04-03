@@ -33,7 +33,7 @@ public class RoomsManager : MonoBehaviour
 				else
 				{
 					//Debug.Log(x + ";" + y + " : " + Room.RoomType.ALL);
-					room.GenerateRoom(new Vector2Int(x, y), (Room.RoomType)Random.Range(0, 1 << 5), true);
+					room.GenerateRoom(new Vector2Int(x, y), (Room.RoomType)Random.Range(2, 1 << 5), true);
 					room.IsMoveable = true;
 				}
 
@@ -62,7 +62,7 @@ public class RoomsManager : MonoBehaviour
 		room1.IsMoving = false;
 		room1.transform.position = room2.transform.position;
 		room2.transform.position = room1Pos;
-		room2.ChangeType(Room.RoomType.NONE);
+		room2.CloseRoom();
 		Vector2Int room1Index = room1.RoomIndex;
 		room1.RoomIndex = room2.RoomIndex;
 		room2.RoomIndex = room1Index;

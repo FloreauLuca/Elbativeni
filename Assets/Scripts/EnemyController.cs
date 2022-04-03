@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -6,6 +7,7 @@ using UnityEngine;
 public class EnemyController : CharacterController
 {
 	private PlayerController _playerController = null;
+	private AudioSource _audioSource = null;
 
 	private Room _room = null;
 
@@ -18,6 +20,7 @@ public class EnemyController : CharacterController
 	{
 		base.Start();
 
+		_audioSource = GetComponent<AudioSource>();
 		_playerController = FindObjectOfType<PlayerController>();
 	}
 
@@ -33,12 +36,21 @@ public class EnemyController : CharacterController
 		if (_room != null)
 		{
 			_room.IsEnemyOccupied = false;
-			if (!_room.IsPlayerOccupied)
-			{
-				_room.ChangeType(Room.RoomType.NONE);
-			}
 		}
 		_room = room;
 		_room.IsEnemyOccupied = true;
+		if (!_room.IsPlayerOccupied)
+		{
+			_room.CloseRoom();
+		}
+	}
+
+	private void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.CompareTag("Player"))
+		{
+			FindObjectOfType<EndPanel>().EndGame();
+			_audioSource.Stop();
+		}
 	}
 }

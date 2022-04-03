@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
-	private Rigidbody2D _rigidbody = null;
+	protected Rigidbody2D _rigidbody = null;
 	private SpriteRenderer _playerSprite = null;
 
 	[SerializeField] private float _speed = 1.0f;
