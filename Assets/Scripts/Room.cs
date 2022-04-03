@@ -152,32 +152,49 @@ public class Room : MonoBehaviour
 
 	private void UpdateDoors()
 	{
-		foreach (GameObject door in _doors)
+		if (!MyRoomType.HasFlag(RoomType.TOP))
 		{
-			door.SetActive(true);
+			_doors[0].SetActive(true);
+			StartCoroutine(Fade(1.0f, _doors[0].GetComponentInChildren<SpriteRenderer>()));
 		}
-
-		if (MyRoomType.HasFlag(RoomType.TOP))
+		else
 		{
 			_doors[0].SetActive(false);
 			StartCoroutine(Fade(0.0f, _doors[0].GetComponentInChildren<SpriteRenderer>()));
 		}
-		if (MyRoomType.HasFlag(RoomType.BOTTOM))
+
+		if (!MyRoomType.HasFlag(RoomType.BOTTOM))
+		{
+			_doors[1].SetActive(true);
+			StartCoroutine(Fade(1.0f, _doors[1].GetComponentInChildren<SpriteRenderer>()));
+		}
+		else
 		{
 			_doors[1].SetActive(false);
 			StartCoroutine(Fade(0.0f, _doors[1].GetComponentInChildren<SpriteRenderer>()));
 		}
-		if (MyRoomType.HasFlag(RoomType.LEFT))
+
+		if (!MyRoomType.HasFlag(RoomType.LEFT))
+		{
+			_doors[2].SetActive(true);
+			StartCoroutine(Fade(1.0f, _doors[2].GetComponentInChildren<SpriteRenderer>()));
+		}
+		else
 		{
 			_doors[2].SetActive(false);
 			StartCoroutine(Fade(0.0f, _doors[2].GetComponentInChildren<SpriteRenderer>()));
 		}
-		if (MyRoomType.HasFlag(RoomType.RIGHT))
+
+		if (!MyRoomType.HasFlag(RoomType.RIGHT))
+		{
+			_doors[3].SetActive(true);
+			StartCoroutine(Fade(1.0f, _doors[3].GetComponentInChildren<SpriteRenderer>()));
+		}
+		else
 		{
 			_doors[3].SetActive(false);
 			StartCoroutine(Fade(0.0f, _doors[3].GetComponentInChildren<SpriteRenderer>()));
 		}
-
 	}
 
 	public IEnumerator Fade(float newAlpha, SpriteRenderer spriteRenderer)

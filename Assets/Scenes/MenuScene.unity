@@ -783,7 +783,7 @@ MonoBehaviour:
   m_text: 'Avoid ELBATIVENI.
 
 
-    Point anc click to move your character.
+    Point and click to move your character.
 
 
     Use
@@ -791,8 +791,8 @@ MonoBehaviour:
 
 
 
-    Attention, there is a limited number of
-    room.
+    Attention, you can''t move a room you''ve
+    already moved.
 
 
     Good Luck ...'

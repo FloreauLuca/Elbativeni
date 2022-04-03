@@ -49,7 +49,7 @@ public class RoomController : MonoBehaviour
 		} 
 		else
 		{
-			if (!_room.IsPlayerOccupied)
+			if (!_room.IsPlayerOccupied && _room.IsMoveable)
 			{
 				_roomsManager.SwitchRoomsPos(_selectedController.Room, _room);
 				_selectedController.Room.IsMoveable = false;

@@ -19,6 +19,7 @@ public class EndPanel : MonoBehaviour
 
 	public void EndGame()
 	{
+		Time.timeScale = 0.0f;
 		_audioSource.Play();
 		_timer.Pause = true;
 		_onEndDisplay.Invoke();

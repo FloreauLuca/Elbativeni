@@ -6,7 +6,7 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
 	protected Rigidbody2D _rigidbody = null;
-	private SpriteRenderer _playerSprite = null;
+	[SerializeField] private Transform _rendererTransform  = null;
 
 	[SerializeField] private float _speed = 1.0f;
 	[SerializeField] private float _radius = 2.0f;
@@ -17,7 +17,6 @@ public class CharacterController : MonoBehaviour
 	public virtual void Start()
 	{
 		_rigidbody = GetComponent<Rigidbody2D>();
-		_playerSprite = GetComponentInChildren<SpriteRenderer>();
 	}
 
 	public virtual void Update()
@@ -51,7 +50,10 @@ public class CharacterController : MonoBehaviour
 
 	private void LookAt(Vector2 dir)
 	{
-		float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-		transform.eulerAngles = new Vector3(0, 0, angle);
+		if (dir != Vector2.zero)
+		{
+			float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+			_rendererTransform.transform.eulerAngles = new Vector3(0, 0, angle);
+		}
 	}
 }

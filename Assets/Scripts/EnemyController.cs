@@ -15,11 +15,11 @@ public class EnemyController : CharacterController
 	{
 		get { return _room; }
 	}
-
+	
 	public override void Start()
 	{
 		base.Start();
-
+		Time.timeScale = 1.0f;
 		_audioSource = GetComponent<AudioSource>();
 		_playerController = FindObjectOfType<PlayerController>();
 	}
@@ -49,8 +49,11 @@ public class EnemyController : CharacterController
 	{
 		if (other.CompareTag("Player"))
 		{
-			FindObjectOfType<EndPanel>().EndGame();
-			_audioSource.Stop();
+			if (!other.GetComponent<PlayerController>().Room.IsMoving)
+			{
+				FindObjectOfType<EndPanel>().EndGame();
+				_audioSource.Stop();
+			}
 		}
 	}
 }
