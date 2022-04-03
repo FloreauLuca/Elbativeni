@@ -18,4 +18,5 @@ Credits :
 
 2009 Iconian Fonts - Daniel Zadorozny
 
-<iframe width="560" height="315" src="https://musiclab.chromeexperiments.com/Song-Maker/embed/4965374923112448" frameborder="0" allowfullscreen></iframe>
+Music composed via the Song Maker of Chrome Lab : 
+https://musiclab.chromeexperiments.com/Song-Maker/song/4965374923112448
